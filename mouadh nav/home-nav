@@ -699,10 +699,31 @@
         }
 
         /* Cart Icon and Dropdown */
-        .cart-dropdown {
-            position: relative;
-        }
 
+        
+       .cart-dropdown {
+    display: none;
+    position: absolute; /* Position it absolutely */
+    right: 0;
+    top: 100%; /* Position it below the navbar */
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    border-radius: 10px;
+    padding: 15px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.cart-dropdown.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
         .cart-icon {
             font-size: 24px;
             cursor: pointer;
@@ -831,18 +852,18 @@
     <!-- Navbar -->
     <header class="header">
         <nav class="navbar" id="navbar">
-            <!-- Logo at the top-left corner -->
+            <!-- Logo -->
             <div class="logo">
                 <img src="C:\Users\mouav\Desktop\project_01\view\assets\images\navbar\R.jpg" alt="Eliah">
             </div>
-
+    
             <!-- Hamburger Menu for Mobile -->
             <div class="menu-toggle" id="mobile-menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-
+    
             <!-- Navigation Links -->
             <ul class="nav-links" id="nav-links">
                 <li><a href="#">Home</a></li>
@@ -865,7 +886,7 @@
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-
+    
             <!-- Search Bar and Cart at the top-right corner -->
             <div class="nav-icons">
                 <input type="text" placeholder="Search..." class="search-bar">
@@ -874,7 +895,7 @@
                     <span class="cart-count" id="cart-count">0</span>
                 </div>
             </div>
-
+    
             <!-- Cart Dropdown -->
             <div class="cart-dropdown" id="cart-dropdown">
                 <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
