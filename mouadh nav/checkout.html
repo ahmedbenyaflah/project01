@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #ff6b6b;
+        }
+
+        .modal h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            text-align: center;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ff6b6b;
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Order Summary Styles */
+        .order-summary {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 10px;
+            border: 1px solid #eee;
+        }
+
+        .order-summary h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .order-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .order-item-quantity {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .order-item-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .total-price {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Submit Button */
+        .submit-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff6b6b, #ff4c4c);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, #ff4c4c, #ff6b6b);
+            transform: translateY(-2px);
+        }
+
+        /* Confirmation Message */
+        .confirmation-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #4CAF50;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeCheckoutModal()">&times;</span>
+            <h1>Checkout</h1>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+                <div class="form-group">
+                    <label for="ville">Ville</label>
+                    <select id="ville" name="ville" required>
+                        <option value="">Sélectionnez votre ville</option>
+                        <option value="Tunis">Tunis</option>
+                        <option value="Sfax">Sfax</option>
+                        <option value="Sousse">Sousse</option>
+                        <!-- Add all 24 Tunisian cities here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Exact Place</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+            </form>
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="order-items">
+                    <div class="order-item">
+                        <img src="https://via.placeholder.com/60" alt="Product 1">
+                        <div class="order-item-info">
+                            <div class="order-item-title">Product 1</div>
+                            <div class="order-item-quantity">3x</div>
+                        </div>
+                        <div class="order-item-price">$75.00</div>
+                    </div>
+                    <div class="order-item">
+                        <img src="https://via.placeholder.com/60" alt="Product 2">
+                        <div class="order-item-info">
+                            <div class="order-item-title">Product 2</div>
+                            <div class="order-item-quantity">1x</div>
+                        </div>
+                        <div class="order-item-price">$45.00</div>
+                    </div>
+                </div>
+                <div class="total-price">
+                    Total: $<span id="total-price">120.00</span>
+                </div>
+            </div>
+            <button class="submit-button" onclick="submitOrder()">Submit Order</button>
+            <div class="confirmation-message" id="confirmation-message">
+                Thank you! Your delivery is done. Wait for our call.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Open Checkout Modal
+        function openCheckoutModal() {
+            const modal = document.getElementById("checkout-modal");
+            modal.style.display = "flex";
+        }
+
+        // Close Checkout Modal
+        function closeCheckoutModal() {
+            const modal = document.getElementById("checkout-modal");
+            modal.style.display = "none";
+        }
+
+        // Submit Order
+        function submitOrder() {
+            const confirmationMessage = document.getElementById("confirmation-message");
+            confirmationMessage.style.display = "block";
+        }
+    </script>
+</body>
+</html>
