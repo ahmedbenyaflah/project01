@@ -683,168 +683,184 @@
         }
 
         .modal-content {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            cursor: zoom-in;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
+            top: 15px;
+            right: 15px;
             font-size: 24px;
             cursor: pointer;
+            color: #333;
+            transition: color 0.3s ease;
         }
 
-        /* Cart Icon and Dropdown */
+        .modal-close:hover {
+            color: #ff6b6b;
+        }
 
-        
-       .cart-dropdown {
-    display: none;
-    position: absolute; /* Position it absolutely */
-    right: 0;
-    top: 100%; /* Position it below the navbar */
-    background: #fff;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    min-width: 300px;
-    max-height: 400px;
-    overflow-y: auto;
-    z-index: 1000;
-    border-radius: 10px;
-    padding: 15px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    opacity: 0;
-    transform: translateY(-10px);
-}
-
-.cart-dropdown.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-        .cart-icon {
+        .modal h1 {
             font-size: 24px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background-color: #ff6b6b;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-        }
-
-        .cart-dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: #fff;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            min-width: 300px;
-            padding: 20px;
-            border-radius: 4px;
-        }
-
-        .cart-dropdown-content.show {
-            display: block;
-        }
-
-        .cart-items {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-
-        .cart-item img {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-right: 10px;
-        }
-
-        .cart-item-info {
-            flex: 1;
-        }
-
-        .cart-item-title {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .cart-item-category {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .cart-item-price {
-            font-size: 14px;
-            font-weight: bold;
-            margin: 5px 0;
-        }
-
-        .cart-item-quantity {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .cart-item-quantity button {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .cart-item-quantity button:hover {
-            background-color: #e9ecef;
-        }
-
-        .cart-item-quantity span {
-            font-size: 14px;
-        }
-
-        .cart-total {
-            margin-top: 20px;
-            font-size: 16px;
-            font-weight: bold;
-            text-align: right;
-        }
-
-        .validate-button {
-            width: 100%;
-            padding: 10px;
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
             text-align: center;
         }
 
-        .validate-button:hover {
-            background-color: #ff4c4c;
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ff6b6b;
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Order Summary Styles */
+        .order-summary {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 10px;
+            border: 1px solid #eee;
+        }
+
+        .order-summary h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .order-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .order-item-quantity {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .order-item-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .total-price {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Submit Button */
+        .submit-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff6b6b, #ff4c4c);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, #ff4c4c, #ff6b6b);
+            transform: translateY(-2px);
+        }
+
+        /* Confirmation Message */
+        .confirmation-message {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #4CAF50;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -856,14 +872,14 @@
             <div class="logo">
                 <img src="C:\Users\mouav\Desktop\project_01\view\assets\images\navbar\R.jpg" alt="Eliah">
             </div>
-    
+
             <!-- Hamburger Menu for Mobile -->
             <div class="menu-toggle" id="mobile-menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-    
+
             <!-- Navigation Links -->
             <ul class="nav-links" id="nav-links">
                 <li><a href="#">Home</a></li>
@@ -886,7 +902,7 @@
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-    
+
             <!-- Search Bar and Cart at the top-right corner -->
             <div class="nav-icons">
                 <input type="text" placeholder="Search..." class="search-bar">
@@ -895,14 +911,14 @@
                     <span class="cart-count" id="cart-count">0</span>
                 </div>
             </div>
-    
+
             <!-- Cart Dropdown -->
             <div class="cart-dropdown" id="cart-dropdown">
                 <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
                 <div id="cart-items"></div>
                 <div class="cart-actions">
                     <button class="btn-clear" onclick="clearCart()">Clear</button>
-                    <button class="btn-buy" onclick="buyItems()">Buy</button>
+                    <button class="btn-buy" onclick="openCheckoutModal()">Buy</button>
                 </div>
             </div>
         </nav>
@@ -1006,6 +1022,55 @@
             </div>
         </div>
     </footer>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeCheckoutModal()">&times;</span>
+            <h1>Checkout</h1>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+                <div class="form-group">
+                    <label for="ville">Ville</label>
+                    <select id="ville" name="ville" required>
+                        <option value="">Sélectionnez votre ville</option>
+                        <option value="Tunis">Tunis</option>
+                        <option value="Sfax">Sfax</option>
+                        <option value="Sousse">Sousse</option>
+                        <!-- Add all 24 Tunisian cities here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="address">Exact Place</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+            </form>
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="order-items">
+                    <!-- Order items will be dynamically added here -->
+                </div>
+                <div class="total-price">
+                    Total: $<span id="total-price">0.00</span>
+                </div>
+            </div>
+            <button class="submit-button" onclick="submitOrder()">Submit Order</button>
+            <div class="confirmation-message" id="confirmation-message">
+                Thank you! Your delivery is done. Wait for our call.
+            </div>
+        </div>
+    </div>
 
     <!-- Modal -->
     <div class="modal" id="imageModal">
@@ -1218,6 +1283,22 @@
                 modal.style.display = 'none';
             }
         });
+
+        // Checkout Modal Logic
+        const checkoutModal = document.getElementById('checkout-modal');
+        const confirmationMessage = document.getElementById('confirmation-message');
+
+        function openCheckoutModal() {
+            checkoutModal.style.display = 'flex';
+        }
+
+        function closeCheckoutModal() {
+            checkoutModal.style.display = 'none';
+        }
+
+        function submitOrder() {
+            confirmationMessage.style.display = 'block';
+        }
     </script>
 </body>
 </html>
